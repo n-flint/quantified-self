@@ -41,7 +41,7 @@ Kyle's Calories is a calorie counter app that can catalog and calculate users ca
   - [All Foods](#all-foods)
   - [Single Food](#single-food)
   - [Creat A New Food](create-new-food)
-  - [Update A Food](update-a-current-food)
+  - [Update A Food](update-a-food)
   - [Delete A Food](delete-a-food)
 
 
@@ -116,7 +116,7 @@ Send a POST request with parameters of the name and calories of the food, to cre
   ##### Requirements
   - If the food is not successfully created, a 400 status code will be returned. Both name and calories are required fields.
 
-## Update A Current Food
+## Update A Food
 
 Send a PATCH request with parameters of the name and calories of the food, to create a new food.
 
