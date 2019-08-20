@@ -1,20 +1,16 @@
-# Checklist:
-- [] All Tests are Passing
-- [] The code will run locally
-
-## Type of change
+# Type of change
 - [] New feature
 - [] Bug Fix
+
+# Description of Changes:
+
 
 # Implements/Fixes:
 
 
-## Description of Changes:
+# Tests Written:
 
 
 # Test Coverage:
-
 - Overall coverage:
 - Model coverage:
-
-# Testing Changes
