@@ -88,9 +88,6 @@ Send a GET request with a valid food ID to receive a food object.
 
   ##### Requirements
   - A valid ID must be provided, otherwise a (404) status code will be returned.
-  
-  ________________ New stuff
-
 
 
 ## Create A New food
