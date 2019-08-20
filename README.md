@@ -41,6 +41,7 @@ Kyle's Calories is a calorie counter app that can catalog and calculate users ca
   - [All Foods](#all-foods)
   - [Single Food](#single-food)
   - [Creat A New Food](create-new-food)
+  - [Update A Food](update-a-current-food)
   - [Delete A Food](delete-a-food)
 
 
