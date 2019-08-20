@@ -1,21 +1,18 @@
 var express = require("express");
 var router = express.Router();
 var Food = require('../../../../models').Food;
+var defaultHeader = ["Content-Type", "appication/json"];
 
-/* GET all games */
+/* GET all foods */
 router.get("/", async function(req, res, next) {
-  let foods = await Food.findAll();
-  res.setHeader("Content-Type", "application/json");
-  res.status(200).send(JSON.stringify(foods));
-  // Food.findAll()
-  //   .then(foods => {
-  //     res.setHeader("Content-Type", "application/json");
-  //     res.status(200).send(JSON.stringify(foods));
-  //   })
-  //   .catch(error => {
-  //     res.setHeader("Content-Type", "application/json");
-  //     res.status(500).send({error})
-  //   });
+  try {
+    let foods = await Food.findAll();
+    res.setHeader(...defaultHeader);
+    res.status(200).send(JSON.stringify(foods));
+  } catch {
+    res.setHeader(...defaultHeader);
+    res.status(500).send({error})
+  }
 });
 
 module.exports = router;

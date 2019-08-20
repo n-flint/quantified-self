@@ -6,11 +6,14 @@ let {sequelize} = require('../../../../models');
 
 describe('Test GET /api/v1/foods path', () => {
   beforeAll(async () => {
-    shell.exec('npx sequelize db:create')
+    await shell.exec('npx sequelize db:create')
   });
   beforeEach(async () => {
-    shell.exec('npx sequelize db:migrate')
-    shell.exec('npx sequelize db:seed:all')
+    await shell.exec('npx sequelize db:migrate')
+    await shell.exec('npx sequelize db:seed:all')
+  });
+  afterAll(async () => {
+    await shell.exec('npx sequelize db:migrate:undo:all')
   });
   test('should return a 200 status', async () => {
     return request(app).get("/api/v1/foods").then(response => {
