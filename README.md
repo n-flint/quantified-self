@@ -1,6 +1,6 @@
 # Kyle's Calories
 
-Kyle's Calories is a calorie counter app that can catalog and calculate users calorie intake which they simply can use to contemplate, correlate and craft their cognitive conditional corrections, and cease their corruptive patterns conspiring to condemn them into cinical actions. Chao!
+Kyle's Calories is a calorie counter app that can catalog and calculate users calorie intake which they simply can use to contemplate, correlate and craft their cognitive conditional corrections, and cease their corruptive patterns conspiring to condemn them into cynical actions. Chao!
 
 ## Learning Goals
   - Create an Express API given specified endpoints and response formats
@@ -160,4 +160,4 @@ Send a DELETE request with ID of food to be deleted.
 
 ## Contributing
    - Please open a pull request to contribute!
-   - Kyle loves feed back!
+## Kyle loves feed back!
