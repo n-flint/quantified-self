@@ -116,7 +116,7 @@ Send a POST request with parameters of the name and calories of the food, to cre
   ##### Requirements
   - If the food is not successfully created, a 400 status code will be returned. Both name and calories are required fields.
 
-## Update A Current Foood
+## Update A Current Food
 
 Send a PATCH request with parameters of the name and calories of the food, to create a new food.
 
