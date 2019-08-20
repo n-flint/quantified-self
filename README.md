@@ -93,7 +93,7 @@ Send a GET request with a valid food ID to receive a food object.
 
 
 
-## Create New food
+## Create A New food
 
 Send a POST request with parameters of the name and calories of the food, to create a new food.
 
@@ -143,7 +143,7 @@ Send a PATCH request with parameters of the name and calories of the food, to cr
   ##### Requirements
   -  If the food is not successfully updated, a 400 status code will be returned.
 
-## Delete A Foood
+## Delete A Food
 
 Send a DELETE request with ID of food to be deleted.
 
