@@ -118,7 +118,7 @@ Send a POST request with parameters of the name and calories of the food, to cre
 
 ## Update A Food
 
-Send a PATCH request with parameters of the name and calories of the food, to create a new food.
+Send a PATCH request with parameters of the name and calories of the food, to update the food.
 
   #### PATCH /api/v1foods
   ```
