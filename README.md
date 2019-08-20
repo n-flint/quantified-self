@@ -116,7 +116,48 @@ Send a POST request with parameters of the name and calories of the food, to cre
 
   ##### Requirements
   - If the food is not successfully created, a 400 status code will be returned. Both name and calories are required fields.
----
+
+## Update A Current Foood
+
+Send a PATCH request with parameters of the name and calories of the food, to create a new food.
+
+  #### PATCH /api/v1foods
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  ##### Example Request
+  ```{ "food": { "name": "Mint", "calories": "14"} }```
+
+  ##### Successful Response
+  ```
+  {
+    "id": 1,
+    "name": "Mint",
+    "calories": "14"
+  },
+  ```
+
+  ##### Requirements
+  -  If the food is not successfully updated, a 400 status code will be returned.
+
+## Delete A Foood
+
+Send a DELETE request with ID of food to be deleted.
+
+  #### DELETE /api/v1foods/:id
+  ```
+  Content-Type: application/json
+  Accept: application/json
+  ```
+
+  ##### Successful Response
+  - Status code of 204
+
+  ##### Requirements
+  - If the food is not successfully updated, a 400 status code will be returned.
+----------
 
 ## Contributing
    - Please open a pull request to contribute!
