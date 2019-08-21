@@ -4,7 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "jest --watch"
+    "test": "jest --collectCoverage"
+  },
+  "jest": {
+    "maxConcurrency": 1,
+    "verbose": true,
+    "collectCoverage": true
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

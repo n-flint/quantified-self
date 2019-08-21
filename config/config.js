@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-var config {
+var config = {
   "development": {
     "username": process.env.DV_USERNAME,
     "password": null,
