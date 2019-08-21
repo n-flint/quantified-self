@@ -37,10 +37,8 @@ describe('Test GET /api/v1/foods path', () => {
 
   test('should return a single food object', async () => {
     let response = await request(app).get(`/api/v1/foods/1`)
-    expect(response.body.length).toEqual(1),
-    expect(Object.keys(response.body[0])).toContain('id')
-    expect(Object.keys(response.body[0])).toContain('name'),
-    expect(Object.keys(response.body[0])).toContain('calories')
-    expect(Object.values(response.body[0])).toContain('Banana')
+    expect(response.body['id']).toEqual(1)
+    expect(response.body['name']).toEqual('Banana')
+    expect(response.body['calories']).toEqual(150)
   });
 });
