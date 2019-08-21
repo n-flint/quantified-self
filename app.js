@@ -16,5 +16,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/v1/foods', foodsRouter);
+app.use('/api/v1/foods/:id', foodsRouter);
 
 module.exports = app;

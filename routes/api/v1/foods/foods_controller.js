@@ -15,4 +15,19 @@ router.get("/", async function(req, res, next) {
   }
 });
 
+// GET a single food
+router.get("/:id", async function (req, res, next) {
+  var id = req.params.id
+  try {
+    let food = await Food.findOne({
+        id: id
+    });
+    res.setHeader(...defaultHeader);
+    res.status(200).send(JSON.stringify(food));
+  } catch {
+    res.setHeader(...defaultHeader);
+    res.status(404).send({ error })
+  }
+});
+
 module.exports = router;
