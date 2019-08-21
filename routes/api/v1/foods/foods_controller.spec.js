@@ -26,12 +26,7 @@ describe('Test GET /api/v1/foods path', () => {
     let pearParams = {"name": "Pear", "calories": 220};
     let banana = await Food.create(bananaParams);
     let apple = await Food.create(appleParams);
-    let pear = await Food.create(pearParams);
-    // return request(app).get("/api/v1/foods").then(response => {
-      // expect(response.body.length).toEqual(3),
-      // expect(Object.keys(response.body[0])).toContain('id')
-      // expect(Object.keys(response.body[0])).toContain('name'),
-      // expect(Object.keys(response.body[0])).toContain('calories')
+    
     let response = await request(app).get("/api/v1/foods")
 
     expect(response.body.length).toEqual(3),
