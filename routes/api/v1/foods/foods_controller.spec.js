@@ -48,6 +48,9 @@ describe('Test GET /api/v1/foods path', () => {
       calories: 300
     })
     expect(response.status).toBe(201)
+    expect(response.body['id']).toEqual(4)
+    expect(response.body['name']).toEqual('foody')
+    expect(response.body['calories']).toEqual(300)
   });
 
   test('recieves a 404 if invalid credentials are profided', async () => {
