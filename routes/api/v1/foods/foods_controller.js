@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Food = require('../../../../models').Food;
-var defaultHeader = ["Content-Type", "appication/json"];
+var defaultHeader = ["Content-Type", "application/json"];
 
 /* GET all foods */
 router.get("/", async function(req, res, next) {
@@ -40,6 +40,28 @@ router.post("/", async function (req, res, next) {
     res.status(201).send(JSON.stringify(food, ['id', 'name', 'calories']));
   } catch {
     let error = 'Food Not Created'
+    res.setHeader(...defaultHeader);
+    res.status(400).send({ error })
+  }
+});
+
+router.patch("/:id", async function (req, res, next) {
+  try {
+    let food = await Food.findOne({
+      where: {id: req.params.id }
+    });
+    if (req.body.name && req.body.calories) {
+    food.update({
+      name: req.body.name,
+      calories: req.body.calories
+    })
+    } else {
+      throw "You must give both name and calories"
+    }
+    res.setHeader(...defaultHeader);
+    res.status(201).send(JSON.stringify(food, ['id', 'name', 'calories']));
+  } catch {
+    let error = 'Food Not Updated'
     res.setHeader(...defaultHeader);
     res.status(400).send({ error })
   }
