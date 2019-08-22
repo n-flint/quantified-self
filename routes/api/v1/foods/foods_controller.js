@@ -30,4 +30,18 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
+router.post("/", async function (req, res, next) {
+    food = Food.create({
+      name: req.body.name,
+      calories: req.body.calories
+    })
+  try {
+    res.setHeader(...defaultHeader);
+    res.status(200).send(JSON.stringify(food));
+  } catch {
+    res.setHeader(...defaultHeader);
+    res.status(400).send({ error })
+  }
+});
+
 module.exports = router;
