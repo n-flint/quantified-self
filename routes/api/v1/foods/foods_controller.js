@@ -32,15 +32,17 @@ router.get("/:id", async function (req, res, next) {
 
 router.post("/", async function (req, res, next) {
   try {
+    console.log('request')
     let food = await Food.create({
       name: req.body.name,
       calories: req.body.calories
     })
     res.setHeader(...defaultHeader);
-    res.status(200).send(JSON.stringify(food));
+    res.status(201).send(JSON.stringify(food));
   } catch {
+    let error = "Invalid Parameters"
     res.setHeader(...defaultHeader);
-    res.status(400).send({ error })
+    res.status(400).send({ error });
   }
 });
 
