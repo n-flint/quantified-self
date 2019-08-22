@@ -15,11 +15,13 @@ describe('Test GET /api/v1/foods path', () => {
   afterAll(async () => {
     await shell.exec('npx sequelize db:migrate:undo:all')
   });
+
   test('should return a 200 status', async () => {
     return request(app).get("/api/v1/foods").then(response => {
       expect(response.status).toBe(200)
     });
   });
+
   test('should return an array of food objects', async () => {
     let bananaParams = { "name": "Banana", "calories": 150 };
     let appleParams = { "name": "Apple", "calories": 100 };
@@ -40,5 +42,11 @@ describe('Test GET /api/v1/foods path', () => {
     expect(response.body['id']).toEqual(1)
     expect(response.body['name']).toEqual('Banana')
     expect(response.body['calories']).toEqual(150)
+  });
+
+  test('should delete a single food object', async () => {
+    let response = await request(app).delete(`/api/v1/foods/1`)
+    console.log(response.body)
+    expect(response.status).toEqual(204)
   });
 });

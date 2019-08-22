@@ -20,10 +20,26 @@ router.get("/:id", async function (req, res, next) {
   var id = req.params.id
   try {
     let food = await Food.findOne({
-        id: id
+      id: id
     });
     res.setHeader(...defaultHeader);
     res.status(200).send(JSON.stringify(food));
+  } catch {
+    res.setHeader(...defaultHeader);
+    res.status(404).send({ error })
+  }
+});
+
+// DELETE a single food
+router.delete("/:id", async function (req, res, next) {
+  var id = req.params.id
+  try {
+    let food = await Food.findOne({
+      id: id
+    });
+    delete food.obj;
+    res.setHeader(...defaultHeader);
+    res.status(204).send();
   } catch {
     res.setHeader(...defaultHeader);
     res.status(404).send({ error })
