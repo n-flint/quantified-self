@@ -15,11 +15,13 @@ describe('Test GET /api/v1/foods path', () => {
   afterAll(async () => {
     await shell.exec('npx sequelize db:migrate:undo:all')
   });
+
   test('should return a 200 status', async () => {
     return request(app).get("/api/v1/foods").then(response => {
       expect(response.status).toBe(200)
     });
   });
+
   test('should return an array of food objects', async () => {
     let bananaParams = { "name": "Banana", "calories": 150 };
     let appleParams = { "name": "Apple", "calories": 100 };
@@ -53,12 +55,23 @@ describe('Test GET /api/v1/foods path', () => {
     expect(response.body['calories']).toEqual(300)
   });
 
-  test('recieves a 404 if invalid credentials are profided', async () => {
+  test('receives a 404 if invalid credentials are provided', async () => {
     let response = await request(app).post(`/api/v1/foods`).send({
       food: {
         name: 'foody'
       }
     })
     expect(response.status).toBe(400)
+  });
+
+  test('should delete a single food object', async () => {
+    let response = await request(app).delete(`/api/v1/foods/1`)
+    expect(response.status).toEqual(204)
+  });
+
+  test('receives a 404 if invalid id given to delete', async () => {
+    let response = await request(app).delete(`/api/v1/foods/100`)
+    expect(response.status).toEqual(404)
+    expect(response.body).toEqual({"error": "ID given does not match a food"})
   });
 });

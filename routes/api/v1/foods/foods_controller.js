@@ -17,11 +17,11 @@ router.get("/", async function(req, res, next) {
 
 // GET a single food
 router.get("/:id", async function (req, res, next) {
-  var id = req.params.id
   try {
     let food = await Food.findOne({
-        id: id
+      where: {id: req.params.id}
     });
+    console.log(food)
     res.setHeader(...defaultHeader);
     res.status(200).send(JSON.stringify(food));
   } catch {
@@ -42,6 +42,22 @@ router.post("/", async function (req, res, next) {
     let error = 'Food Not Created'
     res.setHeader(...defaultHeader);
     res.status(400).send({ error })
+  }
+});
+
+// DELETE a single food
+router.delete("/:id", async function (req, res, next) {
+  try {
+    let food = await Food.findOne({
+      where: {id: req.params.id}
+    });
+    await food.destroy();
+    res.setHeader(...defaultHeader);
+    res.status(204).send()
+  } catch {
+    let error = "ID given does not match a food";
+    res.setHeader(...defaultHeader);
+    res.status(404).send({ error })
   }
 });
 
