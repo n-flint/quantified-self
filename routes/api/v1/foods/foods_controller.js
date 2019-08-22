@@ -46,4 +46,19 @@ router.post("/", async function (req, res, next) {
   }
 });
 
+router.delete("/:id", async function (req, res, next) {
+  var id = req.params.id
+  try {
+    let food = await Food.findOne({
+      id: id
+    });
+    food.destoy;
+    res.setHeader(...defaultHeader);
+    res.status(204).send(JSON.stringify(food));
+  } catch {
+    res.setHeader(...defaultHeader);
+    res.status(404).send({ error })
+  }
+});
+
 module.exports = router;
