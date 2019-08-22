@@ -31,11 +31,11 @@ router.get("/:id", async function (req, res, next) {
 });
 
 router.post("/", async function (req, res, next) {
-    food = Food.create({
+  try {
+    let food = await Food.create({
       name: req.body.name,
       calories: req.body.calories
     })
-  try {
     res.setHeader(...defaultHeader);
     res.status(200).send(JSON.stringify(food));
   } catch {
