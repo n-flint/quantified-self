@@ -30,7 +30,6 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-// POST a single food
 router.post("/", async function (req, res, next) {
   try {
     let food = await Food.create({
