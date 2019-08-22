@@ -55,11 +55,37 @@ describe('Test GET /api/v1/foods path', () => {
     expect(response.body['calories']).toEqual(300)
   });
 
-  test('receives a 404 if invalid credentials are provided', async () => {
+  test('receives a 400 if invalid credentials are provided when creating food', async () => {
     let response = await request(app).post(`/api/v1/foods`).send({
       food: {
         name: 'foody'
       }
+    })
+    expect(response.status).toBe(400)
+  });
+
+  test('update an existing object with valid credentials', async () => {
+    let response = await request(app).patch(`/api/v1/foods/1`).send({
+      name: 'mango',
+      calories: 350
+    })
+    expect(response.status).toBe(201)
+    expect(response.body['id']).toEqual(1)
+    expect(response.body['name']).toEqual('mango')
+    expect(response.body['calories']).toEqual(350)
+  });
+
+  test('receives a 400 if credentials are missing when updating food', async () => {
+    let response = await request(app).patch(`/api/v1/foods/1`).send({
+      name: 'strawberry'
+    })
+    expect(response.status).toBe(400)
+  });
+
+  test('receives a 400 if given invalid id for updating food', async () => {
+    let response = await request(app).patch(`/api/v1/foods/1000`).send({
+      name: 'blueberry',
+      calories: '700'
     })
     expect(response.status).toBe(400)
   });
