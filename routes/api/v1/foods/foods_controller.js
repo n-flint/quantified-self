@@ -37,7 +37,7 @@ router.post("/", async function (req, res, next) {
       calories: req.body.calories
     })
     res.setHeader(...defaultHeader);
-    res.status(201).send(JSON.stringify(food));
+    res.status(201).send(JSON.stringify(food, ['id', 'name', 'calories']));
   } catch {
     let error = 'Food Not Created'
     res.setHeader(...defaultHeader);
