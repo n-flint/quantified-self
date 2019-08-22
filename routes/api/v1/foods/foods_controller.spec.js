@@ -44,9 +44,34 @@ describe('Test GET /api/v1/foods path', () => {
     expect(response.body['calories']).toEqual(150)
   });
 
+  test('create a new object with valid credentials', async () => {
+    let response = await request(app).post(`/api/v1/foods`).send({
+      name: 'foody',
+      calories: 300
+    })
+    expect(response.status).toBe(201)
+    expect(response.body['id']).toEqual(4)
+    expect(response.body['name']).toEqual('foody')
+    expect(response.body['calories']).toEqual(300)
+  });
+
+  test('receives a 404 if invalid credentials are provided', async () => {
+    let response = await request(app).post(`/api/v1/foods`).send({
+      food: {
+        name: 'foody'
+      }
+    })
+    expect(response.status).toBe(400)
+  });
+
   test('should delete a single food object', async () => {
     let response = await request(app).delete(`/api/v1/foods/1`)
-    console.log(response.body)
     expect(response.status).toEqual(204)
+  });
+
+  test('receives a 404 if invalid id given to delete', async () => {
+    let response = await request(app).delete(`/api/v1/foods/100`)
+    expect(response.status).toEqual(404)
+    expect(response.body).toEqual({"error": "ID given does not match a food"})
   });
 });
