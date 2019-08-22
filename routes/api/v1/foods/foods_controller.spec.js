@@ -41,4 +41,24 @@ describe('Test GET /api/v1/foods path', () => {
     expect(response.body['name']).toEqual('Banana')
     expect(response.body['calories']).toEqual(150)
   });
+
+  test('create a new object with valid credentials', async () => {
+    let response = await request(app).post(`/api/v1/foods`).send({
+      name: 'foody',
+      calories: 300
+    })
+    expect(response.status).toBe(201)
+    expect(response.body['id']).toEqual(4)
+    expect(response.body['name']).toEqual('foody')
+    expect(response.body['calories']).toEqual(300)
+  });
+
+  test('recieves a 404 if invalid credentials are profided', async () => {
+    let response = await request(app).post(`/api/v1/foods`).send({
+      food: {
+        name: 'foody'
+      }
+    })
+    expect(response.status).toBe(400)
+  });
 });

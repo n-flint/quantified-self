@@ -30,4 +30,19 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
+router.post("/", async function (req, res, next) {
+  try {
+    let food = await Food.create({
+      name: req.body.name,
+      calories: req.body.calories
+    })
+    res.setHeader(...defaultHeader);
+    res.status(201).send(JSON.stringify(food, ['id', 'name', 'calories']));
+  } catch {
+    let error = 'Food Not Created'
+    res.setHeader(...defaultHeader);
+    res.status(400).send({ error })
+  }
+});
+
 module.exports = router;
