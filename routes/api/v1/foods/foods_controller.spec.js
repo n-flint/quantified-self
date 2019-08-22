@@ -47,7 +47,6 @@ describe('Test GET /api/v1/foods path', () => {
         name: 'foody',
         calories: 300
     })
-    console.log('response status', response.status)
     expect(response.status).toBe(201)
   });
 
@@ -58,5 +57,11 @@ describe('Test GET /api/v1/foods path', () => {
       }
     })
     expect(response.status).toBe(400)
+  });
+
+  test('delete a new object with valid id', async () => {
+    let response = await request(app).delete(`/api/v1/foods/1`)
+    console.log('response status', response.status)
+    expect(response.status).toBe(204)
   });
 });
