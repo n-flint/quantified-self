@@ -41,4 +41,11 @@ describe('Test GET /api/v1/foods path', () => {
     expect(response.body['name']).toEqual('Banana')
     expect(response.body['calories']).toEqual(150)
   });
+
+  xtest('create a new food object', async () => {
+    let response = await request(app).post(`/api/v1/foods`)
+    expect(response.body['id']).toEqual(1)
+    expect(response.body['name']).toEqual('Banana')
+    expect(response.body['calories']).toEqual(150)
+  });
 });
