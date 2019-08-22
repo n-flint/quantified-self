@@ -42,10 +42,20 @@ describe('Test GET /api/v1/foods path', () => {
     expect(response.body['calories']).toEqual(150)
   });
 
-  xtest('create a new food object', async () => {
-    let response = await request(app).post(`/api/v1/foods`)
-    expect(response.body['id']).toEqual(1)
-    expect(response.body['name']).toEqual('Banana')
-    expect(response.body['calories']).toEqual(150)
+  test('create a new object with valid credentials', async () => {
+    let response = await request(app).post(`/api/v1/foods`).send({
+      name: 'foody',
+      calories: 300
+    })
+    expect(response.status).toBe(201)
+  });
+
+  test('recieves a 404 if invalid credentials are profided', async () => {
+    let response = await request(app).post(`/api/v1/foods`).send({
+      food: {
+        name: 'foody'
+      }
+    })
+    expect(response.status).toBe(400)
   });
 });
