@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     calories: { type: DataTypes.INTEGER, allowNull: false }
   }, {});
   Food.associate = function(models) {
-    // associations can be defined here
+    Food.belongsToMany(models.Meal, {through: models.MealFood})
   };
   return Food;
 };
