@@ -14,6 +14,8 @@ describe('Test GET /api/v1/foods path', () => {
   });
   afterAll(async () => {
     await shell.exec('npx sequelize db:migrate:undo:all')
+    await shell.exec('npx sequelize db:seed:undo:all')
+    await shell.exec('npx sequelize db:drop')
   });
 
   test('should return a 200 status', async () => {
