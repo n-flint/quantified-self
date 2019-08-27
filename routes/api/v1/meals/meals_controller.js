@@ -23,11 +23,12 @@ router.get("/", async function (req, res, next) {
 router.get("/:meal_id/foods", async function (req, res, next) {
   try {
     let meal = await Meal.findOne({
-      where: {id: req.params.meal_id}
+      where: {id: req.params.meal_id},
+      include: foods
     });
     console.log(meal)
     res.setHeader(...defaultHeader);
-    res.status(200).send(JSON.stringify(meal));
+    res.status(200).send(JSON.stringify(meal, ['id', 'name', 'Food', 'id', 'name', 'calories']));
   } catch {
     let error = 'you done goofed'
     res.setHeader(...defaultHeader);
@@ -36,13 +37,3 @@ router.get("/:meal_id/foods", async function (req, res, next) {
 });
 
 module.exports = router;
-
-// User.findAll({
-//   include: [{
-//     model: Project,
-//     through: {
-//       attributes: ['createdAt', 'startedAt', 'finishedAt'],
-//       where: { completed: true }
-//     }
-//   }]
-// });
