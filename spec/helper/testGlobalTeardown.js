@@ -1,5 +1,7 @@
 var shell = require('shelljs');
+var {sequelize} = require('../../models');
 
 module.exports = () => {
-  shell.exec('npx sequelize db:drop');
+  sequelize.close();
+  shell.exec('npx sequelize db:drop', {silent: true});
 }

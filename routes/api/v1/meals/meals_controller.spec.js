@@ -56,6 +56,7 @@ describe('Test GET /api/v1/meals path', () => {
 
     let mealFood_1 = await MealFood.create({ MealId: meal_1.id, FoodId: pancake.id })
     let mealFood_2 = await MealFood.create({ MealId: meal_1.id, FoodId: bacon.id })
+
     let response = await request(app).get(`/api/v1/meals/${meal_1.id}/foods`)
 
     // Not able to test for id's here, the test suite DB does not seem to be properly cleared after each test
@@ -70,7 +71,7 @@ describe('Test GET /api/v1/meals path', () => {
   test('should return a 404 if single meal is not found by id', async () => {
     let response = await request(app).get(`/api/v1/meals/1a85/foods`)
     expect(response.status).toBe(404)
-    expect(response.body['error']).toEqual('Meal Not Found')
+    expect(response.body).toHaveProperty('error')
   });
 
   test('should add a food to a meal', async () => {
@@ -79,15 +80,32 @@ describe('Test GET /api/v1/meals path', () => {
     let meal_1 = await Meal.create({name: 'breakfast'});
 
     let response = await request(app).post(`/api/v1/meals/${meal_1.id}/foods/${banana.id}`)
-    // console.log("XXXXXXX", banana.id, meal_1.id, response.body)
     expect(response.status).toBe(201)
     expect(response.body).toEqual("Successfully added Banana to breakfast")
   });
 
-  test('should return a 404 if invalid params given', async () => {
+  test('should return a 404 if invalid params given for adding food to meal', async () => {
     let response = await request(app).post("/api/v1/meals/100/foods/100")
 
     expect(response.status).toBe(404)
     expect(response.body).toEqual({"error": "Food Not Added to Meal"})
+  });
+
+  test('should delete a food from a meal', async () => {
+    let bananaParams = { "name": "Banana", "calories": 150 };
+    let banana = await Food.create(bananaParams);
+    let meal_1 = await Meal.create({name: 'breakfast'});
+    let mealFood_1 = await MealFood.create({ MealId: meal_1.id, FoodId: banana.id })
+
+    let response = await request(app).delete(`/api/v1/meals/${meal_1.id}/foods/${banana.id}`)
+
+    expect(response.status).toBe(204)
+  });
+
+  test('should return a 404 if invalid params for deleting food from meal', async() => {
+    let response = await request(app).delete("/api/v1/meals/100/foods/100")
+
+    expect(response.status).toBe(404)
+    expect(response.body).toHaveProperty('error')
   });
 });

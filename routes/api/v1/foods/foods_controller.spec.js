@@ -26,7 +26,7 @@ describe('Test GET /api/v1/foods path', () => {
     let response = await request(app).get("/api/v1/foods")
 
     expect(response.body.length).toEqual(3)
-    expect(Object.keys(response.body[0])).toContain('id'),
+    expect(Object.keys(response.body[0])).toContain('id')
     expect(Object.keys(response.body[0])).toContain('name')
     expect(Object.keys(response.body[0])).toContain('calories')
   });
@@ -35,9 +35,11 @@ describe('Test GET /api/v1/foods path', () => {
     let bananaParams = { "name": "Banana", "calories": 150 };
     let banana = await Food.create(bananaParams);
     let response = await request(app).get(`/api/v1/foods/${banana.id}`)
+
     expect(response.body['id']).toEqual(banana.id)
     expect(response.body['name']).toEqual('Banana')
     expect(response.body['calories']).toEqual(150)
+
   });
 
   test('create a new object with valid credentials', async () => {
