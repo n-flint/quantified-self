@@ -9,7 +9,10 @@
   "jest": {
     "maxConcurrency": 1,
     "verbose": true,
-    "collectCoverage": true
+    "collectCoverage": true,
+    "maxConcurrency": 1,
+    "globalSetup": "./spec/helper/testGlobalSetup.js",
+    "globalTeardown": "./spec/helper/testGlobalTeardown.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

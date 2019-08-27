@@ -4,20 +4,12 @@ var app = require('../../../../app.js');
 let Food = require('../../../../models').Food
 let Meal = require('../../../../models').Meal
 let MealFood = require('../../../../models').MealFood
+var cleanup = require('../../../../spec/helper/testCleanup');
 let { sequelize } = require('../../../../models');
 
 describe('Test GET /api/v1/meals path', () => {
-  beforeAll(async () => {
-    await shell.exec('npx sequelize db:create')
-  });
   beforeEach(async () => {
-    await shell.exec('npx sequelize db:migrate')
-    await shell.exec('npx sequelize db:seed:all')
-  });
-  afterAll(async () => {
-    await shell.exec('npx sequelize db:migrate:undo:all')
-    await shell.exec('npx sequelize db:seed:undo:all')
-    await shell.exec('npx sequelize db:drop')
+    cleanup()
   });
 
   test('should return a 200 status', async () => {
@@ -44,7 +36,7 @@ describe('Test GET /api/v1/meals path', () => {
 
     let response = await request(app).get("/api/v1/meals")
 
-    expect(response.body.length).toEqual(3),
+    expect(response.body.length).toEqual(3)
     expect(Object.keys(response.body[0])).toContain('name')
     expect(Object.keys(response.body[0])).toContain('Food')
     expect(Object.keys(response.body[0].Food[0])).toContain('id')
@@ -79,5 +71,23 @@ describe('Test GET /api/v1/meals path', () => {
     let response = await request(app).get(`/api/v1/meals/1a85/foods`)
     expect(response.status).toBe(404)
     expect(response.body['error']).toEqual('Meal Not Found')
+  });
+
+  test('should add a food to a meal', async () => {
+    let bananaParams = { "name": "Banana", "calories": 150 };
+    let banana = await Food.create(bananaParams);
+    let meal_1 = await Meal.create({name: 'breakfast'});
+
+    let response = await request(app).post(`/api/v1/meals/${meal_1.id}/foods/${banana.id}`)
+    // console.log("XXXXXXX", banana.id, meal_1.id, response.body)
+    expect(response.status).toBe(201)
+    expect(response.body).toEqual("Successfully added Banana to breakfast")
+  });
+
+  test('should return a 404 if invalid params given', async () => {
+    let response = await request(app).post("/api/v1/meals/100/foods/100")
+
+    expect(response.status).toBe(404)
+    expect(response.body).toEqual({"error": "Food Not Added to Meal"})
   });
 });

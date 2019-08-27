@@ -21,7 +21,6 @@ router.get("/:id", async function (req, res, next) {
     let food = await Food.findOne({
       where: {id: req.params.id}
     });
-    console.log(food)
     res.setHeader(...defaultHeader);
     res.status(200).send(JSON.stringify(food));
   } catch {
@@ -39,7 +38,7 @@ router.post("/", async function (req, res, next) {
     res.setHeader(...defaultHeader);
     res.status(201).send(JSON.stringify(food, ['id', 'name', 'calories']));
   } catch {
-    let error = 'Food Not Created'
+    let error = await 'Food Not Created'
     res.setHeader(...defaultHeader);
     res.status(400).send({ error })
   }
@@ -61,7 +60,7 @@ router.patch("/:id", async function (req, res, next) {
     res.setHeader(...defaultHeader);
     res.status(201).send(JSON.stringify(food, ['id', 'name', 'calories']));
   } catch {
-    let error = 'Food Not Updated'
+    let error = await 'Food Not Updated'
     res.setHeader(...defaultHeader);
     res.status(400).send({ error })
   }
@@ -77,7 +76,7 @@ router.delete("/:id", async function (req, res, next) {
     res.setHeader(...defaultHeader);
     res.status(204).send()
   } catch {
-    let error = "ID given does not match a food";
+    let error = await "ID given does not match a food";
     res.setHeader(...defaultHeader);
     res.status(404).send({ error })
   }
