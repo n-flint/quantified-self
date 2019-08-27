@@ -19,5 +19,6 @@ app.use('/', indexRouter);
 app.use('/api/v1/foods', foodsRouter);
 app.use('/api/v1/foods/:id', foodsRouter);
 app.use('/api/v1/meals', mealsRouter);
+app.use('/api/v1/meals/:id/foods/:id', mealsRouter);
 
 module.exports = app;
