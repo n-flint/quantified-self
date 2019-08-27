@@ -53,4 +53,22 @@ describe('Test GET /api/v1/meals path', () => {
     expect(response.body[0].Food[0]['name']).toEqual('Banana')
     expect(response.body[0].Food[0]['calories']).toEqual(150)
   });
+
+  test('should return a single meal object', async () => {
+    let pancakeParams = { "name": "Pancakes", "calories": 100 };
+    let baconParams = { "name": "Bacon", "calories": 500 };
+
+    let pancake = await Food.create(pancakeParams);
+    let bacon = await Food.create(baconParams);
+
+    let meal_1 = await Meal.create({ name: 'Breakfast' });
+    let meal_2 = await Meal.create({ name: 'Lunch' });
+
+    await MealFood.create({ MealId: meal_1.id, FoodId: pancake.id })
+    await MealFood.create({ MealId: meal_1.id, FoodId: bacon.id })
+
+    let response = await request(app).get('/api/v1/meals/1/foods')
+    expect(response.body['id']).toEqual(1)
+    expect(response.body['name']).toEqual('Breakfast')
+  });
 });
