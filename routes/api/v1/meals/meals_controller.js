@@ -30,7 +30,7 @@ router.get("/:meal_id/foods", async function (req, res, next) {
     res.setHeader(...defaultHeader);
     res.status(200).send(JSON.stringify(meal, ['id', 'name', 'Food', 'id', 'name', 'calories']));
   } catch {
-    let error = 'you done goofed'
+    let error = 'Meal Not Found'
     res.setHeader(...defaultHeader);
     res.status(404).send({ error })
   }
