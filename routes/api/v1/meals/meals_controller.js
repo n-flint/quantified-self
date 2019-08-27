@@ -13,8 +13,25 @@ router.get("/", async function (req, res, next) {
     res.setHeader(...defaultHeader);
     res.status(200).send(JSON.stringify(meals, ['id', 'name', 'Food', 'id', 'name', 'calories']));
   } catch {
+    let error = 'you done goofed'
     res.setHeader(...defaultHeader);
     res.status(500).send({ error })
+  }
+});
+
+// get a single meals foods
+router.get("/:meal_id/foods", async function (req, res, next) {
+  try {
+    let meal = await Meal.findOne({
+      where: {id: req.params.meal_id}
+    });
+    console.log(meal)
+    res.setHeader(...defaultHeader);
+    res.status(200).send(JSON.stringify(meal));
+  } catch {
+    let error = 'you done goofed'
+    res.setHeader(...defaultHeader);
+    res.status(404).send({ error })
   }
 });
 
