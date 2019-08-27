@@ -64,11 +64,19 @@ describe('Test GET /api/v1/meals path', () => {
     let meal_1 = await Meal.create({ name: 'Breakfast' });
     let meal_2 = await Meal.create({ name: 'Lunch' });
 
-    await MealFood.create({ MealId: meal_1.id, FoodId: pancake.id })
-    await MealFood.create({ MealId: meal_1.id, FoodId: bacon.id })
-
-    let response = await request(app).get('/api/v1/meals/1/foods')
+    let mealFood_1 = await MealFood.create({ MealId: meal_1.id, FoodId: pancake.id })
+    let mealFood_2 = await MealFood.create({ MealId: meal_1.id, FoodId: bacon.id })
+    let response = await request(app).get(`/api/v1/meals/${meal_1.id}/foods`)
+    console.log('----------------------------')
+    console.log(response.body.Food)
+    console.log('----------------------------')
     expect(response.body['id']).toEqual(1)
     expect(response.body['name']).toEqual('Breakfast')
+    expect(response.body.Food[0]['id']).toEqual(1)
+    expect(response.body.Food[0]['name']).toEqual('Pancakes')
+    expect(response.body.Food[0]['calories']).toEqual(100)
+    expect(response.body.Food[1]['id']).toEqual(2)
+    expect(response.body.Food[1]['name']).toEqual('Bacon')
+    expect(response.body.Food[1]['calories']).toEqual(500)
   });
 });
