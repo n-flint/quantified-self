@@ -19,6 +19,22 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+// get a single meals foods
+router.get("/:meal_id/foods", async function (req, res, next) {
+  try {
+    let meal = await Meal.findOne({
+      where: {id: req.params.meal_id},
+      include: foods
+    });
+    res.setHeader(...defaultHeader);
+    res.status(200).send(JSON.stringify(meal, ['id', 'name', 'Food', 'id', 'name', 'calories']));
+  } catch {
+    let error = 'Meal Not Found'
+    res.setHeader(...defaultHeader);
+    res.status(404).send({ error })
+  }
+});
+
 /* Add food to meal */
 router.post("/:meal_id/foods/:food_id", async function (req, res, next) {
   try {
@@ -37,9 +53,5 @@ router.post("/:meal_id/foods/:food_id", async function (req, res, next) {
     res.status(201).send(JSON.stringify(message));
   } catch {
     let error = await 'Food Not Added to Meal'
-    res.setHeader(...defaultHeader);
-    res.status(404).send({ error })
-  }
-});
 
 module.exports = router;
