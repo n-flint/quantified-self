@@ -26,7 +26,6 @@ router.get("/:meal_id/foods", async function (req, res, next) {
       where: {id: req.params.meal_id},
       include: foods
     });
-    console.log(meal)
     res.setHeader(...defaultHeader);
     res.status(200).send(JSON.stringify(meal, ['id', 'name', 'Food', 'id', 'name', 'calories']));
   } catch {
